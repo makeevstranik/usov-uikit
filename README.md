@@ -12,7 +12,7 @@ Practice from book:
 > App description
 ### Notes ###
 > my notes, some code examples
-**#3.01**
+** #1 **
 > Commit tag  
 ---
 ## LIST OF COMMITED FILES GOES FROM HERE: ⬇️ ##
@@ -20,8 +20,15 @@ Practice from book:
 ### Right On Target ### 
 App life cycle, scene, navigation, AppDelegate, SceneDelegate, MVC, generics, protocols
 
+#### 📓 Notes ####
+❗ Tree ways to change the scene 
+- Segues (cose scene overloading)
+- Present, Dismiss methods (see p.83) 
+- Navigation Controller
 
-**commit #3.01**
+❗ Life Cycle
 
-### I Am Poor ###
+
+**commit #1 **
+
 ---
