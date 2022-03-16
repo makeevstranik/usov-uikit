@@ -12,7 +12,9 @@ Practice from book:
 > App description
 ### Notes ###
 > my notes, some code examples
-** #1 **
+
+**#1**
+
 > Commit tag  
 ---
 ## LIST OF COMMITED FILES GOES FROM HERE: ⬇️ ##
@@ -28,7 +30,8 @@ App life cycle, scene, navigation, AppDelegate, SceneDelegate, MVC, generics, pr
 
 ❗ Life Cycle
 
+![life cycle](readme-images/life-cycle.png)
 
-**commit #1 **
+**commit #1**
 
 ---
