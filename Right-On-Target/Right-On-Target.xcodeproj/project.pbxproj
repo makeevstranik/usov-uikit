@@ -58,11 +58,21 @@
 		4C0A9F9427DD08FF002CC8BA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4CAEE0AB27DBBC2F005486FF /* AppDelegate.swift */,
+				4CAEE0AD27DBBC2F005486FF /* SceneDelegate.swift */,
+				4CAEE0B127DBBC2F005486FF /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4CA9AA3627E2030D00252CC5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				4CAEE0AF27DBBC2F005486FF /* ViewController.swift */,
 				4C0A9F9527DD0944002CC8BA /* ColorViewController.swift */,
 				4C0A9F9D27DE2EE7002CC8BA /* MainViewController.swift */,
 			);
-			path = View;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		4CAEE09F27DBBC2F005486FF = {
@@ -84,11 +94,9 @@
 		4CAEE0AA27DBBC2F005486FF /* Right-On-Target */ = {
 			isa = PBXGroup;
 			children = (
-				4CAEE0AB27DBBC2F005486FF /* AppDelegate.swift */,
-				4CAEE0AD27DBBC2F005486FF /* SceneDelegate.swift */,
-				4C0A9F9427DD08FF002CC8BA /* View */,
 				4CAEE0C127DC00D0005486FF /* Model */,
-				4CAEE0B127DBBC2F005486FF /* Main.storyboard */,
+				4C0A9F9427DD08FF002CC8BA /* View */,
+				4CA9AA3627E2030D00252CC5 /* Controller */,
 				4CAEE0B427DBBC30005486FF /* Assets.xcassets */,
 				4CAEE0B627DBBC30005486FF /* LaunchScreen.storyboard */,
 				4CAEE0B927DBBC30005486FF /* Info.plist */,
