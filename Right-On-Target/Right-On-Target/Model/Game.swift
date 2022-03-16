@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 typealias C = Constants
 
 class Game {
@@ -28,7 +27,6 @@ class Game {
 }
 
 class GameNumbers: Game, PlayableProtocol {
-
     var random = Random()
  
     func makeStep(for sliderValue: Float) {
@@ -40,12 +38,10 @@ class GameNumbers: Game, PlayableProtocol {
 }
 
 class GameColors: Game, PlayableProtocol {
-    
     var random = Random()
     var guessedColor: UIColor!
     var colors: [UIColor?] = Array(repeating: nil, count: C.numberOfColorButtons)
     
-
     func makeStep(for buttonTag: Int) {
         if !isGameOver {
             if guessedColor == colors[buttonTag] {
@@ -79,6 +75,7 @@ extension UIColor {
                   blue: CGFloat(b) / 255.0,
                   alpha: 1.0)
     }
+    
     func strHex() -> String {
         let c = self.cgColor.components!
         let (r, g, b) = (Int(c[0] * 255), Int(c[1] * 255), Int(c[2] * 255))

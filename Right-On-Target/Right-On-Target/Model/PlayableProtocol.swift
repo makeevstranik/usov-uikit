@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol PlayableProtocol {
     associatedtype T
     var random: Random { get }
