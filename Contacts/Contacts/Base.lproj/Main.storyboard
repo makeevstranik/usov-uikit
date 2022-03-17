@@ -17,26 +17,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jWd-pZ-FJb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="756"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="q0c-fv-weo"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bUX-Rh-p9C"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="5hD-mZ-5iK">
+                                <rect key="frame" x="0.0" y="800" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5dB-ev-gK4"/>
+                                    <barButtonItem title="Add Contact" id="e1R-54-U2x">
+                                        <connections>
+                                            <action selector="addContactPressed:" destination="BYZ-38-t0r" id="vcN-2Q-G6d"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="jWd-pZ-FJb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1MB-k2-gFa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jWd-pZ-FJb" secondAttribute="bottom" id="jSA-gT-gkm"/>
+                            <constraint firstItem="5hD-mZ-5iK" firstAttribute="top" secondItem="jWd-pZ-FJb" secondAttribute="bottom" id="F0d-Hy-7Am"/>
                             <constraint firstItem="jWd-pZ-FJb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qW3-0H-y3T"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jWd-pZ-FJb" secondAttribute="trailing" id="y5q-he-FoK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contactTableView" destination="jWd-pZ-FJb" id="1a4-sN-rid"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="19"/>
+            <point key="canvasLocation" x="18.840579710144929" y="18.75"/>
         </scene>
     </scenes>
     <resources>

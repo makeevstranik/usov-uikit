@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0CB9AC27E382AA008A8F75 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0CB9AB27E382AA008A8F75 /* Contact.swift */; };
 		4CD9000927E24FB600B98DFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD9000827E24FB600B98DFD /* AppDelegate.swift */; };
 		4CD9000B27E24FB600B98DFD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD9000A27E24FB600B98DFD /* SceneDelegate.swift */; };
 		4CD9000D27E24FB600B98DFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD9000C27E24FB600B98DFD /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0CB9AB27E382AA008A8F75 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4CD9000527E24FB600B98DFD /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD9000827E24FB600B98DFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CD9000A27E24FB600B98DFD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0CB9AA27E38272008A8F75 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C0CB9AB27E382AA008A8F75 /* Contact.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4CD9000627E24FB600B98DFD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -50,6 +60,7 @@
 		4CD9000727E24FB600B98DFD /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				4C0CB9AA27E38272008A8F75 /* Model */,
 				4CD9000827E24FB600B98DFD /* AppDelegate.swift */,
 				4CD9000A27E24FB600B98DFD /* SceneDelegate.swift */,
 				4CD9000C27E24FB600B98DFD /* ViewController.swift */,
@@ -143,6 +154,7 @@
 			files = (
 				4CD9000D27E24FB600B98DFD /* ViewController.swift in Sources */,
 				4CD9000927E24FB600B98DFD /* AppDelegate.swift in Sources */,
+				4C0CB9AC27E382AA008A8F75 /* Contact.swift in Sources */,
 				4CD9000B27E24FB600B98DFD /* SceneDelegate.swift in Sources */,
 				4CD9001D27E2633C00B98DFD /* Constants.swift in Sources */,
 			);
