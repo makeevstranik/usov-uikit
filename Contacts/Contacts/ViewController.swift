@@ -13,7 +13,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var contactTableView: UITableView!
     
-    var contacts = [ContactProtocol]()
+    var contacts = [ContactProtocol]() {
+        didSet {
+            contacts.sort{ $0.title < $1.title }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +28,6 @@ class ViewController: UIViewController {
         contacts.append(Contact(title: "Elsa Hosk", phone: "+799912312323"))
         contacts.append(Contact(title: "Bella Hadid", phone: "+781213342321"))
         contacts.append(Contact(title: "Gigi Hadid", phone: "+7000911112"))
-        contacts.sort(by: { $0.title < $1.title })
     }
     
     @IBAction func addContactPressed(_ sender: UIBarButtonItem) {
@@ -86,7 +89,7 @@ extension ViewController {
     
     func changeContactFromAlert(_ tableView: UITableView, indexPath: IndexPath?) {
         
-        let alert = UIAlertController(title: "Change Contact", message: "Fill Contact", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Change Contacts", message: "Fill Contact", preferredStyle: .alert)
         
         alert.addTextField{ $0.placeholder = "Enter The Name" }
         alert.addTextField{ $0.placeholder = "Enter The Phone" }
