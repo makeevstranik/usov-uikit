@@ -35,3 +35,9 @@ App life cycle, scene, navigation, AppDelegate, SceneDelegate, MVC, generics, pr
 **commit #1**
 
 ---
+### Contacts ###
+App for saving contacts (title and phone), it's possible to create or change a contact or delete it. 
+Using: 
+- User Defaults - (save struct with self-made coding/decoding to appropriate UD type 🖕 DON'T DO THAT, as UD only for simple types and data)
+- Table View - (reusable cell)
+- Tool Bar
