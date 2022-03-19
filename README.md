@@ -51,3 +51,7 @@ Using:
 - Polimorfism with *prortocols*
 - Swipe in cell - (*trailingSwipeActionsConfigurationForRowAt* call Alert) 
 - Alert - the same allert for adding and changing contacts
+
+**commit #2**
+---
+
