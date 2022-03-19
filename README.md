@@ -37,7 +37,17 @@ App life cycle, scene, navigation, AppDelegate, SceneDelegate, MVC, generics, pr
 ---
 ### Contacts ###
 App for saving contacts (title and phone), it's possible to create or change a contact or delete it. 
+
 Using: 
-- User Defaults - (save struct with self-made coding/decoding to appropriate UD type 🖕 DON'T DO THAT, as UD only for simple types and data)
+- User Defaults - (save *struct with self-made coding/decoding to appropriate UD type 
+  + 🖕 DON'T DO THAT, as UD only for simple types and data)
+  + 🖕 Pay attention: There is far more simple way to code/decode *struct* (conform protcol *Codable*) but it doesn't work with *protocol* only for library      types
+  
+    [see here](https://stackoverflow.com/questions/50346052/protocol-extending-encodable-or-codable-does-not-conform-to-it#fromHistory)
+    [and here](https://stackoverflow.com/questions/46337380/conforming-class-to-codable-protocol-in-swift4)
+   
 - Table View - (reusable cell)
-- Tool Bar
+- ToolBar - (add new item)
+- Polimorfism with *prortocols*
+- Swipe in cell - (*trailingSwipeActionsConfigurationForRowAt* call Alert) 
+- Alert - the same allert for adding and changing contacts
