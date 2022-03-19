@@ -7,7 +7,14 @@
 
 import Foundation
 
+
 struct Constants {
     static let rowsInTable = 50
     static let contactCellIdentifier = "simpleCell"
+    static let storageKey = "contacts"
+     
+    enum ContactKey: String {
+        case title
+        case phone
+    }
 }

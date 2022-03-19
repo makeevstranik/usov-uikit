@@ -11,24 +11,25 @@ typealias C = Constants
 
 class ViewController: UIViewController {
     
+    var storage: ContactStorageProtocol!
+    
     @IBOutlet weak var contactTableView: UITableView!
     
     var contacts = [ContactProtocol]() {
         didSet {
             contacts.sort{ $0.title < $1.title }
+            storage.save(contacts: contacts)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadContacts()
-        // Do any additional setup after loading the view.
+        storage = ContactStorage()
+        contacts = storage.load() ?? []
+        //userDefaults.removeObject(forKey: "test")
     }
-    private func loadContacts() {
-        contacts.append(Contact(title: "Elsa Hosk", phone: "+799912312323"))
-        contacts.append(Contact(title: "Bella Hadid", phone: "+781213342321"))
-        contacts.append(Contact(title: "Gigi Hadid", phone: "+7000911112"))
-    }
+   
+    
     
     @IBAction func addContactPressed(_ sender: UIBarButtonItem) {
         changeContactFromAlert(contactTableView, indexPath: nil)

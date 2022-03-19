@@ -1,29 +1,63 @@
 import UIKit
+import Foundation
 
-var greeting = "Hello, playground"
+protocol ContactProtocol {
+    var title: String { get set }
+    var phone: String { get set }
+}
 
-class wind {
-    var val: Int = 0
+protocol ContactStorageProtocol {
+    func load() -> [ContactProtocol]?
+    func save(contacts: [ContactProtocol])
+}
+
+struct Contact: ContactProtocol {
+    var title: String
+    var phone: String
+}
+
+
+
+class ContactStorage: ContactStorageProtocol {
     
-    var prt: Void {
-        print("Val: ", val)
+    private var storage = UserDefaults.standard
+    private var storageKey = "contacts"
+    private var coder = ContactCoder()
+    
+    func load() -> [ContactProtocol]? {
+        guard let data = storage.array(forKey: storageKey) as? [[String:String]] else { return nil }
+        return coder.decode(data: data)
     }
-    func changeVal(fn: (inout Int) -> Void) {
-        fn(&val)
+    
+    func save(contacts: [ContactProtocol]) {
+        storage.set(coder.code(contacts: contacts), forKey: storageKey)
     }
-    func addVal(fn: (Int) -> Int ) {
-        self.val = fn(val)
+    
+}
+
+class ContactCoder {
+    
+    enum ContactKey: String {
+        case title
+        case phone
+    }
+    
+    func code(contacts: [ContactProtocol]) -> [[String: String]] {
+        
+        return contacts.reduce(into: [[String: String]](), {acc, el in
+            acc.append([ContactKey.title.rawValue: el.title, ContactKey.phone.rawValue: el.phone])
+        })
+    }
+    
+    func decode(data: [[String: String]]) -> [ContactProtocol] {
+        return data.reduce(into: [ContactProtocol](), {acc, el in
+            acc.append(Contact(title: el[ContactKey.title.rawValue]!, phone: el[ContactKey.phone.rawValue]!))
+        })
     }
 }
 
-var el = wind()
-el.prt
-el.changeVal(fn: {el in
-    el += 20
-    print("Here el=", el)
-})
-el.prt
-el.addVal(fn: {el in
-  return el + 200
-})
-el.prt
+var storage = ContactStorage()
+var contacts = [Contact(title: "Elsa Hosk", phone: "8989877799"), Contact(title: "Gigi Hadid", phone: "90909090")]
+//storage.save(contacts: contacts)
+var newcont = storage.load()
+print(newcont ?? "no value")
