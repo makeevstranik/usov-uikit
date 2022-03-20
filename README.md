@@ -53,4 +53,21 @@ Using:
 
 **commit #2**
 ---
+### Navigation ###
+Sample App - to find out how navigation works.  
+Using: 
+- Navigation Contriller (❗there is only one  ViewController for working with 3 scenes DON'T DO THAT)
+- Create UIView Controller by code from UIStoryboard by stryboardID
+- Navigation Stack (DON'T create the same UIView Controller instances in N.Stack, for not consiquently moving).   
+  check there is't *-green-* instance in stack:   
+  
+  ''' swift
+  guard let controllers = self.navigationController?.viewControllers else { return }
+  for controller in controllers {
+            if controller.title == "-green-" {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            }
+        }
+  '''
 
