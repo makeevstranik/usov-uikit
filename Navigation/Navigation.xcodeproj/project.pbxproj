@@ -13,6 +13,7 @@
 		4C56C3E627E7328D00FC4D4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C56C3E427E7328D00FC4D4F /* Main.storyboard */; };
 		4C56C3E827E7328E00FC4D4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C56C3E727E7328E00FC4D4F /* Assets.xcassets */; };
 		4C56C3EB27E7328E00FC4D4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C56C3E927E7328E00FC4D4F /* LaunchScreen.storyboard */; };
+		4C56C3F327E74F3C00FC4D4F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56C3F227E74F3C00FC4D4F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		4C56C3E727E7328E00FC4D4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C56C3EA27E7328E00FC4D4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C56C3EC27E7328E00FC4D4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C56C3F227E74F3C00FC4D4F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				4C56C3DE27E7328D00FC4D4F /* AppDelegate.swift */,
+				4C56C3F227E74F3C00FC4D4F /* Constants.swift */,
 				4C56C3E027E7328D00FC4D4F /* SceneDelegate.swift */,
 				4C56C3E227E7328D00FC4D4F /* ViewController.swift */,
 				4C56C3E427E7328D00FC4D4F /* Main.storyboard */,
@@ -141,6 +144,7 @@
 				4C56C3E327E7328D00FC4D4F /* ViewController.swift in Sources */,
 				4C56C3DF27E7328D00FC4D4F /* AppDelegate.swift in Sources */,
 				4C56C3E127E7328D00FC4D4F /* SceneDelegate.swift in Sources */,
+				4C56C3F327E74F3C00FC4D4F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
