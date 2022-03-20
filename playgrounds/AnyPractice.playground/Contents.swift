@@ -56,8 +56,4 @@ class ContactCoder {
     }
 }
 
-var storage = ContactStorage()
-var contacts = [Contact(title: "Elsa Hosk", phone: "8989877799"), Contact(title: "Gigi Hadid", phone: "90909090")]
-//storage.save(contacts: contacts)
-var newcont = storage.load()
-print(newcont ?? "no value")
+
