@@ -77,4 +77,8 @@ Using:
         printNavigationStack()
     }
   ```
+  - chenge root scene:   
+```swift
+self.navigationController?.viewControllers[0] = someViewController
+```
 
