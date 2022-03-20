@@ -61,13 +61,19 @@ Using:
 - Navigation Stack (DON'T create the same UIView Controller instances in N.Stack, for not consiquently moving).   
   check there is't *-green-* instance in stack:   
   
-  ''' swift
-  guard let controllers = self.navigationController?.viewControllers else { return }
-  for controller in controllers {
+  ```swift
+    // cross link is possible here,  -green- controller is already in stack
+    // self.navigationController?.pushViewController(nextViewController, animated: true) WILL CREATE SECOND -green- nextViewController
+    @IBAction func toGreenFromYellowPressed(_ sender: UIButton) {
+        guard let controllers = self.navigationController?.viewControllers else { return }
+        // avoid making the same instances in Nav. stack
+        for controller in controllers {
             if controller.title == "-green-" {
                 self.navigationController?.popToViewController(controller, animated: true)
                 break
             }
         }
-  '''
+        printNavigationStack()
+    }
+  ```
 
