@@ -62,7 +62,7 @@ Using:
   check there is't *-green-* instance in stack:   
   
   ```swift
-    // cross link is possible here,  -green- controller is already in stack
+    // -green- controller is already in stack
     // self.navigationController?.pushViewController(nextViewController, animated: true) WILL CREATE SECOND -green- nextViewController
     @IBAction func toGreenFromYellowPressed(_ sender: UIButton) {
         guard let controllers = self.navigationController?.viewControllers else { return }
