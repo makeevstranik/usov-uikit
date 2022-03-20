@@ -63,7 +63,8 @@ Using:
   
   ```swift
     // -green- controller is already in stack
-    // self.navigationController?.pushViewController(nextViewController, animated: true) WILL CREATE SECOND -green- nextViewController
+    // self.navigationController?.pushViewController(nextViewController, animated: true) WILL CREATE 
+    // SECOND -green- nextViewController
     @IBAction func toGreenFromYellowPressed(_ sender: UIButton) {
         guard let controllers = self.navigationController?.viewControllers else { return }
         // avoid making the same instances in Nav. stack
