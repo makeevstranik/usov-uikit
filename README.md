@@ -74,7 +74,6 @@ Using:
                 break
             }
         }
-        printNavigationStack()
     }
   ```
   - chenge root scene:   
