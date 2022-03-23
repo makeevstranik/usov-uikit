@@ -80,4 +80,91 @@ Using:
 ```swift
 self.navigationController?.viewControllers[0] = someViewController
 ```
+---
+### Transfer ###
+This app is just example of transfering data between controllers!!!
+Read comments in code! 
+Use PROTOCOLS for plymorfism!
+Use NavigationController
+Using:   
+Four ways to transfer data from A --> B, B --> A (Any --> Any)
+1. By property 
+    #### A --> B ####
+    + make *var updatingData* in B 
+    + make *func updateSomeFieldWithData(updatingData)* in B - WillAppear
+    + take instanse B in A by storyBoardId
+    ``` swift
+    private func getController(storyboardId: String) -> TransferChangeableProtocol {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: storyboardId) as! TransferChangeableProtocol
+    }
+    ```
+    + change B.updatingData in A
+    + go to B 
+    ``` swift
+    self.navigationController?.pushViewController(controllerB, animated: true)
+    ```
+2. By segue
+  #### A --> B ####
+  + connect Action Button in A with B by segue (show method)
+  + change sgue's Identifier (toControllerB)
+  + make *prepare* method in A (change updatingData in B instance)
+```swift
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "toControllerB": prepareSceneB(segue)
+            default: break
+        }
+    }
+    
+    func prepareSceneB(_ segue: UIStoryboardSegue) {
+        guard let controllerB = segue.destination as? ViewControllerB else { return }
+        controllerB.updatingData = dataLabel.text ?? "no text from B"
+    }
+```
+   #### forward Any --> back Any #### unwind Segue (B --> A)
+   + make in A 
+ ```swift
+ @IBAction func unwindToControllerA(_ segue: UIStoryboardSegue) {
+        // doesn't need to be coded!!!!!
+        // this func will automatically appear in case of connection view from controllerB and top icon /Exit/
+    }
+ ```
+  + connect Action Buttton in B with *Exit* element in B and chose *unwindToControllerA*
+  + change segue identifier *unwindToControllerA* 
+  + make prepare method in B (change updatingData in A  see above ⬆️)
+  
+3. By delegate (use *protocol*)
+- make ChangeableProtocol with func updatingData()
+- make var *delegateB!: ChangeableProtocol* in A
+- take instance B (or get from stack in back movement)
 
+``` delegateB = getController(storyboardId: "SecondViewController") as? ViewControllerB ```
+
+- change B  ``` delegateB.updatingData() ```
+
+4. By closure. 
+#### A --> B --> A 
+- set closure handler in B
+- set closure in Action in A to instance B (taken as above)
+```swift
+@IBAction func setClosureInBPressed(_ sender: UIButton) {
+        delegateB.completionClosure = { [unowned self] updateValue in
+            self.textFieldA.text = updateValue
+        }
+}
+```
+- call closure handler in B with new data (change data in A)
+
+REMEMBER:   
+- moving forward  A->B create new instance of B
+- moving back to Any (A) take A instance from NavigationController Stack:
+``` swift
+ private func getControllerFromStack(titleA: String) -> TransferChangeableProtocol {
+       return navigationController?.viewControllers.first(where: {$0.title == titleA}) as! TransferChangeableProtocol
+    }
+ ```
+ - moving just to previous controller B->A, C->B
+ ```swift
+ navigationController?.popViewController(animated: true)
+ ```
