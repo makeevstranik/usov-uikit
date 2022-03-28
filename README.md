@@ -169,6 +169,14 @@ REMEMBER:
  navigationController?.popViewController(animated: true)
  ```  
  **commit #4**
- ---
+ ---   
+ ### ToDoManager ###
  
+ 
+ Using:
+ - Table View Controller (it's collection of):
+    + View Controller
+    + Table View
+    + Delegate
+    + Data Source
  
