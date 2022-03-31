@@ -7,9 +7,25 @@
 
 import Foundation
 
-enum TaskPriority: String {
-    case current
+enum TaskPriority: Int, CaseIterable {
+    case current = 0
     case important
+   // case canceled
+}
+
+extension TaskPriority: CustomStringConvertible {
+    var description: String {
+        switch self {
+            case .current:
+                return "current"
+            case .important:
+                return "important"
+//            case .canceled:
+//                return "canceled"
+        }
+    }
+    
+
 }
 
 enum TaskStatus: String {

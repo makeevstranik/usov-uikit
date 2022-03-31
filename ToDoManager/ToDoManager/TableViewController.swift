@@ -9,111 +9,91 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    var taskManager: TaskManager!
-    
-    var sectionTypesPosition: [TaskPriority]!
-    
-    var tasks: [TaskPriority: [TaskProtocol]]!
+    var taskManager = TaskManager()
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-        taskManager = TaskManager()
-        tasks = taskManager.getSortedTasksWithPriority()
-        sectionTypesPosition = taskManager.taskPriorities
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // add edit b. to navigationBar
+        navigationItem.leftBarButtonItem = editButtonItem
     }
-
-    // MARK: - Table view data source
     
+    // MARK: - Table configuration section
     // number of sections in table
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tasks.count
+        return taskManager.getPriorityCount
     }
     
     // rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // let taskType = sectionTypesPosition[section]
-        guard let currentTaskType = tasks[taskType(section)] else { return 0 }
-        return currentTaskType.count
+        return taskManager.getTasksCountForPriority(for: section) ?? 0
     }
     
     // cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 1 variant
-        //return getConfiguredTaskCell_constraints(for: indexPath)
         return getConfiguredTaskCell_stack(for: indexPath)
     }
     
     // header of cells section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTypesPosition[section].rawValue
+        taskManager.getPriorityDescription(for: section)
     }
 
     // change task status to completed by click on row (cell)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tasks[taskType(indexPath.section)]?[indexPath.row].status = .completed
+        taskManager.changeTaskStatus(from: TaskPosition(key: indexPath.section, pos: indexPath.row), .completed)
         // cancel selection
         tableView.deselectRow(at: indexPath, animated: true)
         //reload sections for IndexSet
         tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    // MARK: - Using Swipe - change Task status
+    // set task to planed status
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row))?.status == .completed else { return nil}
+        let actionSetPlanedStatus = UIContextualAction(style: .normal, title: "Set Planed", handler: { _, _, _ in
+           // self.taskManager.changeTaskStatus(indexPath.section, indexPath.row, .planned)
+            self.taskManager.changeTaskStatus(from: TaskPosition(key: indexPath.section, pos: indexPath.row), .planned)
+            self.tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+        })
+        return UISwipeActionsConfiguration(actions: [actionSetPlanedStatus])
+    }
+    
+   // MARK: - Row editing section
+    // default - true, here just for example
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    // style for edit buttons
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return indexPath.row == 0 ? .insert : .delete
+    }
+    // what edit methods do
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+            case .delete:
+                guard let _ = taskManager.deleteTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row)) else { return }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+            case .insert: tableView.insertRows(at: [indexPath], with: .automatic)
+                // here will code for insertion
+            default: return
+        }
+    }
+    // move row by hand
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        taskManager.moveTask(from: TaskPosition(key: sourceIndexPath.section, pos: sourceIndexPath.row),
+                             to: TaskPosition(key: destinationIndexPath.section, pos: destinationIndexPath.row))
+        tableView.reloadData()
+    }
+    
+    // MARK: - Cell formation section - 2 variants
     // get cell formed from constraints (1 variant)
     private func getConfiguredTaskCell_constraints(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellConstrains", for: indexPath)
-        let taskType = sectionTypesPosition[indexPath.section]
-        guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
+
+        guard let currentTask = taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row)) else { return cell }
         
         let symbolLabel = cell.viewWithTag(1) as? UILabel
         symbolLabel?.text = currentTask.status.rawValue
@@ -137,9 +117,9 @@ class TableViewController: UITableViewController {
         // load cell from prototypeCell as TaskCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellStack", for: indexPath) as! TaskCell
         // get data for cell
-        let taskType = sectionTypesPosition[indexPath.section]
-        guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
-        print("HERE: --->", currentTask)
+        guard let currentTask = taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row)) else { return cell }
+        
+        //print("HERE: --->", currentTask)
         
         // set for outlets from class
         cell.titleLabel.text = currentTask.title
@@ -156,5 +136,4 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    func taskType(_ section: Int) -> TaskPriority { sectionTypesPosition[section] }
 }

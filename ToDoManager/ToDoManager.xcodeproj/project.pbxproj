@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C765FA427F4F97B0035BA4F /* TaskPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C765FA327F4F97B0035BA4F /* TaskPosition.swift */; };
 		4C93B64C27EBBA70006BE3CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93B64B27EBBA70006BE3CB /* AppDelegate.swift */; };
 		4C93B64E27EBBA70006BE3CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C93B64D27EBBA70006BE3CB /* SceneDelegate.swift */; };
 		4C93B65327EBBA70006BE3CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C93B65127EBBA70006BE3CB /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C765FA327F4F97B0035BA4F /* TaskPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPosition.swift; sourceTree = "<group>"; };
 		4C93B64827EBBA70006BE3CB /* ToDoManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C93B64B27EBBA70006BE3CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C93B64D27EBBA70006BE3CB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				4CAD485027ECF87C003391A0 /* Task.swift */,
+				4C765FA327F4F97B0035BA4F /* TaskPosition.swift */,
 				4CAD485627ECFB5E003391A0 /* TaskStorage.swift */,
 				4CAD485227ECF9F8003391A0 /* Protocols.swift */,
 				4C9C6EC927F0E202005EBACE /* TaskManager.swift */,
@@ -175,6 +178,7 @@
 				4C9C6ECA27F0E202005EBACE /* TaskManager.swift in Sources */,
 				4CAD485727ECFB5E003391A0 /* TaskStorage.swift in Sources */,
 				4CAD485327ECF9F8003391A0 /* Protocols.swift in Sources */,
+				4C765FA427F4F97B0035BA4F /* TaskPosition.swift in Sources */,
 				4CAD485127ECF87C003391A0 /* Task.swift in Sources */,
 				4C93B64C27EBBA70006BE3CB /* AppDelegate.swift in Sources */,
 				4CD6CD4527EDEA8800820EBF /* TaskCell.swift in Sources */,
