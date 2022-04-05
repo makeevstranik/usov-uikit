@@ -25,6 +25,15 @@ extension TaskPriority: CustomStringConvertible {
         }
     }
     
+    var instruction: String {
+        switch self {
+            case .current:
+                return "This task has the casual priority."
+            case .important:
+                return "This task type has main priority for completing. All important tasks are located above the list."
+        }
+    }
+    
 
 }
 

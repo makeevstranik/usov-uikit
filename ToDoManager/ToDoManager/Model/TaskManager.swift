@@ -58,6 +58,12 @@ final class TaskManager {
         return self.transformedTasks[key]?.remove(at: source.pos)
     }
     
+    func changeTask(from source: TaskPosition, to editedTask: TaskProtocol) {
+        changeTaskStatus(from: source, editedTask.status)
+        changeTaskType(from: source, editedTask.type)
+        changeTaskTitle(from: source, editedTask.title)
+    }
+    
     func changeTaskStatus(from source: TaskPosition, _ status: TaskStatus) {
         let key = transformKeys[source.key]
         guard let taskSender = transformedTasks[key]?[source.pos] else { return }
@@ -79,6 +85,12 @@ final class TaskManager {
         self.transformedTasks[key]?.remove(at: source.pos)
         
         //sortTransformedTasks(for: [newType])
+    }
+    
+    func changeTaskTitle(from source: TaskPosition, _ newTitle: String) {
+        let key = transformKeys[source.key]
+        guard var taskSender = transformedTasks[key]?[source.pos] else { return }
+        taskSender.title = newTitle
     }
     
     private func sortTransformedTasks(for priorities: [TaskPriority]) {

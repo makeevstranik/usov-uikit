@@ -10,11 +10,18 @@ import UIKit
 class TableViewController: UITableViewController {
     
     var taskManager = TaskManager()
+    var delegateTaskEditController: EditAccessibleProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // add edit b. to navigationBar
         navigationItem.leftBarButtonItem = editButtonItem
+        navigationController?.isToolbarHidden = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        delegateTaskEditController = (storyboard.instantiateViewController(withIdentifier: "editController") as! TaskEditUITVC)
     }
     
     // MARK: - Table configuration section
@@ -52,6 +59,7 @@ class TableViewController: UITableViewController {
     // set task to planed status
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row))?.status == .completed else { return nil}
+       
         let actionSetPlanedStatus = UIContextualAction(style: .normal, title: "Set Planed", handler: { _, _, _ in
            // self.taskManager.changeTaskStatus(indexPath.section, indexPath.row, .planned)
             self.taskManager.changeTaskStatus(from: TaskPosition(key: indexPath.section, pos: indexPath.row), .planned)
@@ -59,6 +67,28 @@ class TableViewController: UITableViewController {
         })
         return UISwipeActionsConfiguration(actions: [actionSetPlanedStatus])
     }
+    
+override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    
+    let currentTask = taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row))
+    delegateTaskEditController.taskEdit = currentTask
+    let actionChangeTask = UIContextualAction(style: .normal, title: "Change Task", handler: {_, _, _ in
+        self.delegateTaskEditController.completionClosure = { [unowned self] editedTask in
+            self.taskManager.changeTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row), to: editedTask)
+            self.tableView.reloadData()
+        }
+        self.navigationController?.pushViewController(self.delegateTaskEditController as! UIViewController, animated: true)
+    })
+    
+    let actionDeleteTask = UIContextualAction(style: .destructive, title: "Delete Task", handler: {_, _, _ in
+        if let _ = self.taskManager.deleteTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row)) {
+            self.tableView.reloadData()
+        }
+    })
+    return UISwipeActionsConfiguration(actions: [actionChangeTask, actionDeleteTask])
+    }
+    
+   
     
    // MARK: - Row editing section
     // default - true, here just for example
@@ -112,7 +142,7 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    // get cell formed with stack and class TskCell
+    // get cell formed with stack and class TaskCell
     private func getConfiguredTaskCell_stack(for indexPath: IndexPath) -> UITableViewCell {
         // load cell from prototypeCell as TaskCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellStack", for: indexPath) as! TaskCell
@@ -137,3 +167,4 @@ class TableViewController: UITableViewController {
     }
     
 }
+
