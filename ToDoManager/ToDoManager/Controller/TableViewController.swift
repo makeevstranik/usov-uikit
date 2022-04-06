@@ -14,6 +14,8 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("IN TableViewController.viewDidLoad()\n taskManager.transformedTasks \(taskManager.transformedTasks!)")
+        //self.tableView.reloadData()
         // add edit b. to navigationBar
         navigationItem.leftBarButtonItem = editButtonItem
         navigationController?.isToolbarHidden = false
@@ -22,6 +24,8 @@ class TableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         delegateTaskEditController = (storyboard.instantiateViewController(withIdentifier: "editController") as! TaskEditUITVC)
+        print("IN TableViewController.viewWillAppear")
+        self.tableView.reloadData()
     }
     
     // MARK: - Table configuration section
@@ -73,9 +77,11 @@ override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurat
     let currentTask = taskManager.getTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row))
     delegateTaskEditController.taskEdit = currentTask
     let actionChangeTask = UIContextualAction(style: .normal, title: "Change Task", handler: {_, _, _ in
+        
         self.delegateTaskEditController.completionClosure = { [unowned self] editedTask in
+            print("IN self.delegateTaskEditController.completionClosure \n editedTask: \(editedTask) \n taskPosition: \(TaskPosition(key: indexPath.section, pos: indexPath.row)) ")
             self.taskManager.changeTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row), to: editedTask)
-            self.tableView.reloadData()
+            //self.tableView.reloadData()
         }
         self.navigationController?.pushViewController(self.delegateTaskEditController as! UIViewController, animated: true)
     })

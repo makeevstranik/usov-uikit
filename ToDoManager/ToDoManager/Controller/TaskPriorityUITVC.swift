@@ -12,19 +12,19 @@ class TaskPriorityUITVC: UITableViewController {
     var task: TaskProtocol!
     var taskManager: TaskManager!
     var selectedPriority: TaskPriority!
+    
+    var delegateTaskEditUITVC: TaskEditUITVC!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // perhaps it must be moved from TableViewController
         taskManager = TaskManager()
-        selectedPriority = .current
-        
+        selectedPriority = delegateTaskEditUITVC.taskEdit.type
         // registration of xib cell
         let cellNib = UINib(nibName: "TaskTypeCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "TaskTypeCell")
     }
-
+  
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -47,6 +47,17 @@ class TaskPriorityUITVC: UITableViewController {
             cell.accessoryType = .none
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at: indexPath)
+        currentCell?.accessoryType = .checkmark
+        delegateTaskEditUITVC.taskEdit.type = TaskPriority(rawValue: indexPath.row)!
+        tableView.visibleCells.forEach{ cell in
+            if cell != currentCell {
+                cell.accessoryType = .none
+            }
+        }
     }
     
 

@@ -51,4 +51,13 @@ enum TaskStatus: String {
         }
     }
     
+    var description: String {
+        switch self {
+            case .planned:
+                return "Planned"
+            case .completed:
+                return "Completed"
+        }
+    }
+    
 }

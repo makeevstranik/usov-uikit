@@ -12,25 +12,24 @@ class TaskEditUITVC: UITableViewController, EditAccessibleProtocol {
     var taskEdit: TaskProtocol!
   
     var completionClosure: ((TaskProtocol) -> Void)?
-
-    //var handlerChangeTask: ((TaskProtocol) -> Void)?
     
-    @IBOutlet weak var taskTitleTextField: UITextField!
+    @IBOutlet weak var prioritySwitcher: UISwitch!
     
     @IBOutlet weak var taskPriorityLabel: UILabel!
     
     @IBOutlet weak var taskStatusLabel: UILabel!
     
+    @IBOutlet weak var taskTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskTitleTextField.text = taskEdit.title
-        taskPriorityLabel.text = taskEdit.type.description
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+       // updateView()
+        print("In viewDidLoad()")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("In viewWillAppear()")
+        updateView()
     }
 
     // MARK: - Table view data source
@@ -46,10 +45,26 @@ class TaskEditUITVC: UITableViewController, EditAccessibleProtocol {
     }
 
     @IBAction func saveBarPressed(_ sender: UIBarButtonItem) {
-        
+        guard let closure = completionClosure else { return }
+        taskEdit.title = taskTextView.text
+        closure(taskEdit)
     }
     
     @IBAction func statusSwitcherChanged(_ sender: UISwitch) {
+        taskEdit.status = sender.isOn ? .planned : .completed
+        taskStatusLabel.text = taskEdit.status.description
+    }
+    
+    
+    
+    func updateView() {
+        taskPriorityLabel.text = taskEdit.type.description
+        taskTextView.text = taskEdit.title
+        taskStatusLabel.text = taskEdit.status.description
+        switch taskEdit.status {
+            case .planned: prioritySwitcher.isOn = true
+            case .completed: prioritySwitcher.isOn = false
+        }
         
     }
     
@@ -110,7 +125,17 @@ class TaskEditUITVC: UITableViewController, EditAccessibleProtocol {
 
 }
 
-
+// MARK: - Segue To Priority Edition
+extension TaskEditUITVC {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "toTaskPriorityUITVC":
+                guard let controller = segue.destination as? TaskPriorityUITVC else { return }
+                controller.delegateTaskEditUITVC = self
+            default: return
+        }
+    }
+}
 // MARK: - Get Controller From Stack
 //extension TaskEditUITVC {
 //    private func getControllerFromStack(titleController: String) -> TransferChangeableProtocol {

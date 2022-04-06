@@ -59,9 +59,11 @@ final class TaskManager {
     }
     
     func changeTask(from source: TaskPosition, to editedTask: TaskProtocol) {
-        changeTaskStatus(from: source, editedTask.status)
-        changeTaskType(from: source, editedTask.type)
+        print("In changeTask(from source: TaskPosition, to editedTask: TaskProtocol)/ source: \(source), editedTask: \(editedTask)")
         changeTaskTitle(from: source, editedTask.title)
+        
+        changeTaskStatus(from: source, editedTask.status)
+        print("In changeTask(from source: TaskPosition, to editedTask: TaskProtocol) AFTER CHANGING \n ****** \n transformedTasks: \(transformedTasks!)")
     }
     
     func changeTaskStatus(from source: TaskPosition, _ status: TaskStatus) {
@@ -76,11 +78,11 @@ final class TaskManager {
     
     func changeTaskType(from source: TaskPosition, _ newType: TaskPriority) {
         let key = transformKeys[source.key]
-        guard key != newType else { return }
+        guard key != newType else { return  }
         guard var taskSender = self.transformedTasks[key]?[source.pos] else { return }
         
         taskSender.type = newType
-        
+        print("IN changeTaskType(from source: TaskPosition, _ newType: TaskPriority) taskSender: \(taskSender)")
         self.transformedTasks[newType]?.append(taskSender)
         self.transformedTasks[key]?.remove(at: source.pos)
         
@@ -88,9 +90,13 @@ final class TaskManager {
     }
     
     func changeTaskTitle(from source: TaskPosition, _ newTitle: String) {
+        print("In changeTaskTitle(from source: TaskPosition, _ newTitle: String) \n newTitle:\(newTitle) ")
         let key = transformKeys[source.key]
-        guard var taskSender = transformedTasks[key]?[source.pos] else { return }
-        taskSender.title = newTitle
+        guard var taskSender = self.transformedTasks[key]?[source.pos] else { return }
+        print("============================ taskSender: \(taskSender)")
+        //taskSender.title = newTitle
+        self.transformedTasks[key]?[source.pos].title = newTitle
+        print("++++++++++++++++++++++++++++ taskSender: \(taskSender)")
     }
     
     private func sortTransformedTasks(for priorities: [TaskPriority]) {
