@@ -7,12 +7,12 @@
 
 import UIKit
 
-// class for 2 variant 
+// class for 2 variant
 class TaskCell: UITableViewCell {
 
     @IBOutlet var symbolLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    
+
     // only for cells that where built in Interface Builder
     override func awakeFromNib() {
         super.awakeFromNib()

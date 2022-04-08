@@ -96,10 +96,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Add Task" id="QzV-0R-9hV">
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="pLd-JH-9Fj"/>
+                        <barButtonItem title="Add Task" image="doc.fill" catalog="system" id="QzV-0R-9hV">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="edJ-zy-fBX" kind="show" id="qMo-y4-q2y"/>
+                                <segue destination="edJ-zy-fBX" kind="show" identifier="toMainList" id="0gw-4s-fgq"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -150,20 +151,20 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YVB-7S-ODJ">
-                                        <rect key="frame" x="0.0" y="62.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="62.5" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YVB-7S-ODJ" id="Lxr-Jn-8L7">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Task Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2e6-s2-ETz">
-                                                    <rect key="frame" x="20" y="11" width="94" height="21.5"/>
+                                                    <rect key="frame" x="20" y="11" width="94" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V24-Rk-9jH">
-                                                    <rect key="frame" x="114" y="11" width="263.5" height="21.5"/>
+                                                    <rect key="frame" x="114" y="11" width="263.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
@@ -185,7 +186,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="QXZ-OX-HhH">
-                                        <rect key="frame" x="0.0" y="106" width="414" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="105.5" width="414" height="53.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QXZ-OX-HhH" id="8S9-V9-rnv">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="53.5"/>
@@ -282,6 +283,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="doc.fill" catalog="system" width="115" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

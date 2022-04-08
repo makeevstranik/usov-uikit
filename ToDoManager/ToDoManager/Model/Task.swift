@@ -7,18 +7,28 @@
 
 import Foundation
 
-struct Task: TaskProtocol {
+class Task: TaskProtocol, Codable {
     
     var title: String
     var type: TaskPriority
     var status: TaskStatus
     
+    init(title: String, type: TaskPriority, status: TaskStatus) {
+        self.title = title
+        self.type = type
+        self.status = status
+    }
+    
 }
 
 extension Task: Comparable {
+    
     static func < (lhs: Task, rhs: Task) -> Bool {
         lhs.status.compareStatus < rhs.status.compareStatus
     }
     
+    static func == (lhs: Task, rhs: Task) -> Bool {
+        lhs.status.compareStatus == rhs.status.compareStatus
+    }
     
 }

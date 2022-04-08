@@ -16,7 +16,7 @@ protocol TaskProtocol {
 
  
 protocol TaskStorageProtocol {
-    func loadTasks() -> [TaskProtocol]
+    func loadTasks() -> [TaskProtocol]?
     func saveTasks(_ tasks: [TaskProtocol])
 }
 

@@ -12,7 +12,11 @@ final class TaskManager {
     
     private var storage: TaskStorage = TaskStorage()
     var transformKeys: [TaskPriority] = TaskPriority.allCases
-    var transformedTasks: [TaskPriority : [TaskProtocol]]!
+    var transformedTasks: [TaskPriority : [TaskProtocol]]! {
+        didSet {
+            saveTasksToStorage()
+        }
+    }
     
     var getPriorityCount: Int { transformKeys.count }
     
@@ -25,7 +29,9 @@ final class TaskManager {
     
     func getTask(from source: TaskPosition) -> TaskProtocol? {
         let key = transformKeys[source.key]
-        return self.transformedTasks[key]?[source.pos]
+        guard let task = self.transformedTasks[key]?[source.pos] else { return nil }
+        // if Task is class - create new instance here
+        return Task(title: task.title, type: task.type, status: task.status)
     }
     
     func getTasksCountForPriority(for key: Int) -> Int? {
@@ -45,11 +51,13 @@ final class TaskManager {
         // code changing priority in case it has been changed
         self.transformedTasks[keyDestination]?.insert(movingTask, at: destination.pos)
         sortTransformedTasks(for: [keyDestination])
-        print("-moveTask(from source: TaskPosition, to destination: TaskPosition) movingTask: \(movingTask)")
     }
     
-    func saveNewTask(_ task: TaskProtocol) {
-        // code here then
+    func saveNewTask(_ task: TaskProtocol) -> Bool {
+        guard !task.title.isEmpty else { return false }
+        guard self.transformedTasks[task.type]?.append(task) != nil else { return false }
+        sortTransformedTasks(for: [task.type])
+        return true
     }
     
     func deleteTask(from source: TaskPosition) -> TaskProtocol? {
@@ -59,19 +67,22 @@ final class TaskManager {
     }
     
     func changeTask(from source: TaskPosition, to editedTask: TaskProtocol) {
-        print("In changeTask(from source: TaskPosition, to editedTask: TaskProtocol)/ source: \(source), editedTask: \(editedTask)")
+        let key = transformKeys[source.key]
+        guard var taskToChange = transformedTasks[key]?[source.pos] else { return }
+
         changeTaskTitle(from: source, editedTask.title)
-        
-        changeTaskStatus(from: source, editedTask.status)
-        print("In changeTask(from source: TaskPosition, to editedTask: TaskProtocol) AFTER CHANGING \n ****** \n transformedTasks: \(transformedTasks!)")
+        changeTaskType(from: source, editedTask.type)
+
+        //changeTaskStatus(from: source, editedTask.status)
+        taskToChange.status = editedTask.status
+        sortTransformedTasks(for: [key])
     }
     
     func changeTaskStatus(from source: TaskPosition, _ status: TaskStatus) {
         let key = transformKeys[source.key]
-        guard let taskSender = transformedTasks[key]?[source.pos] else { return }
+        guard var taskSender = transformedTasks[key]?[source.pos] else { return }
         guard taskSender.status != status else { return }
-        
-        self.transformedTasks[key]?[source.pos].status = status
+        taskSender.status = status
         
         sortTransformedTasks(for: [key])
     }
@@ -82,23 +93,17 @@ final class TaskManager {
         guard var taskSender = self.transformedTasks[key]?[source.pos] else { return }
         
         taskSender.type = newType
-        print("IN changeTaskType(from source: TaskPosition, _ newType: TaskPriority) taskSender: \(taskSender)")
         self.transformedTasks[newType]?.append(taskSender)
         self.transformedTasks[key]?.remove(at: source.pos)
-        
-        //sortTransformedTasks(for: [newType])
     }
     
     func changeTaskTitle(from source: TaskPosition, _ newTitle: String) {
-        print("In changeTaskTitle(from source: TaskPosition, _ newTitle: String) \n newTitle:\(newTitle) ")
         let key = transformKeys[source.key]
-        guard var taskSender = self.transformedTasks[key]?[source.pos] else { return }
-        print("============================ taskSender: \(taskSender)")
-        //taskSender.title = newTitle
+        guard let _ = self.transformedTasks[key]?[source.pos] else { return }
         self.transformedTasks[key]?[source.pos].title = newTitle
-        print("++++++++++++++++++++++++++++ taskSender: \(taskSender)")
     }
     
+    // sort only one section(priority) if it doesn't need more
     private func sortTransformedTasks(for priorities: [TaskPriority]) {
         priorities.forEach{ priority in
             self.transformedTasks[priority] = (self.transformedTasks[priority] as! [Task]).sorted(by: <)
@@ -110,14 +115,16 @@ final class TaskManager {
     }
     
     func loadAndTransformTasks() {
-        let rowTasks = storage.loadTasks()
-        rowTasks.forEach({ self.transformedTasks[$0.type]?.append($0) })
+        if let rowTasks = storage.loadTasks() {
+            rowTasks.forEach({ self.transformedTasks[$0.type]?.append($0) })
+            sortTransformedTasks(for: self.transformKeys)
+        }
         
-        sortTransformedTasks(for: self.transformKeys)
     }
     
     func saveTasksToStorage() {
-        // code here then
+        let rowTasks = self.transformedTasks.flatMap{$1}
+        storage.saveTasks(rowTasks)
     }
     
     

@@ -9,8 +9,9 @@ import UIKit
 
 class TaskTypeCell: UITableViewCell {
     
-    @IBOutlet var typeTitle: UILabel!
-    @IBOutlet var typeDescription: UILabel!
+    // for using in controller TaskPriorityUITVC
+    @IBOutlet var typeTitleLabel: UILabel!
+    @IBOutlet var typeDescriptionLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
