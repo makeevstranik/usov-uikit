@@ -17,7 +17,7 @@ Practice from book:
 
 > Commit tag  
 ---
-## LIST OF COMMITED FILES GOES FROM HERE: ⬇️ ##
+## LIST OF COMMITTED FILES GOES FROM HERE: ⬇️ ##
 ---
 ### Right On Target ### 
 App life cycle, scene, navigation, AppDelegate, SceneDelegate, MVC, generics, protocols
@@ -41,7 +41,7 @@ App for saving contacts (title and phone), it's possible to create or change a c
 Using: 
 - User Defaults - (save *struct with self-made coding/decoding to appropriate UD type 
   + 🖕 DON'T DO THAT, as UD only for simple types and data)
-  + 🖕 Pay attention: There is far more simple way to code/decode *struct* (conform protcol *Codable*) but it doesn't work with *protocol* only for library      types
+  + 🖕 Pay attention: There is far more simple way to code/decode *struct* (conform protocol *Codable*) but it doesn't work with *protocol* only for library      types
     [see here](https://stackoverflow.com/questions/50346052/protocol-extending-encodable-or-codable-does-not-conform-to-it#fromHistory), 
     [and here](https://stackoverflow.com/questions/46337380/conforming-class-to-codable-protocol-in-swift4)
    
@@ -56,9 +56,9 @@ Using:
 ### Navigation ###
 Sample App - to find out how navigation works.  
 Using: 
-- Navigation Contriller (❗there is only one  ViewController for working with 3 scenes DON'T DO THAT)
-- Create UIView Controller by code from UIStoryboard by stryboardID
-- Navigation Stack (DON'T create the same UIView Controller instances in N.Stack, for not consiquently moving).   
+- Navigation Controller (❗there is only one  ViewController for working with 3 scenes DON'T DO THAT)
+- Create UIView Controller by code from UIStoryboard by storyboardID
+- Navigation Stack (DON'T create the same UIView Controller instances in N.Stack, for not consequently moving).   
   check there is't *-green-* instance in stack:   
   
   ```swift
@@ -76,15 +76,15 @@ Using:
         }
     }
   ```
-  - chenge root scene:   
+  - change root scene:   
 ```swift
 self.navigationController?.viewControllers[0] = someViewController
 ```
 ---
 ### Transfer ###
-This app is just example of transfering data between controllers!!!
+This app is just example of transferring data between controllers!!!
 Read comments in code! 
-Use PROTOCOLS for plymorfism!
+Use PROTOCOLS for polymorphism!
 Use NavigationController
 Using:   
 Four ways to transfer data from A --> B, B --> A (Any --> Any)
@@ -92,7 +92,7 @@ Four ways to transfer data from A --> B, B --> A (Any --> Any)
     #### A --> B ####
     + make *var updatingData* in B 
     + make *func updateSomeFieldWithData(updatingData)* in B - WillAppear
-    + take instanse B in A by storyBoardId
+    + take instance B in A by storyBoardId
     ``` swift
     private func getController(storyboardId: String) -> TransferChangeableProtocol {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -107,7 +107,7 @@ Four ways to transfer data from A --> B, B --> A (Any --> Any)
 2. By segue
   #### A --> B ####
   + connect Action Button in A with B by segue (show method)
-  + change sgue's Identifier (toControllerB)
+  + change segue's Identifier (toControllerB)
   + make *prepare* method in A (change updatingData in B instance)
 ```swift
  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -130,7 +130,7 @@ Four ways to transfer data from A --> B, B --> A (Any --> Any)
         // this func will automatically appear in case of connection view from controllerB and top icon /Exit/
     }
  ```
-  + connect Action Buttton in B with *Exit* element in B and chose *unwindToControllerA*
+  + connect Action Button in B with *Exit* element in B and chose *unwindToControllerA*
   + change segue identifier *unwindToControllerA* 
   + make prepare method in B (change updatingData in A  see above ⬆️)
   
@@ -169,14 +169,24 @@ REMEMBER:
  navigationController?.popViewController(animated: true)
  ```  
  **commit #4**
+<<<<<<< HEAD
  ---   
  ### ToDoManager ###
+=======
+ ---
+ ### ToDoManager ###
+ App for saving and changing tasks. 3 screens.
+ using:
+ - Xib Cell
+ - User Defaults (saving codable class with JsonCoder)
+ - Table View 
+ - Static Cells
+ - Segue, Closure, Delegate transfer data between controllers
+ - Original book app structure, is changed. Controller and Model strictly detached. All interaction through TaskManager and TaskStorage.
+ - New sorting algorithm is aded (sort only current section data).
+ - All description text for tasks is using with help of corresponding enum methods
  
- 
- Using:
- - Table View Controller (it's collection of):
-    + View Controller
-    + Table View
-    + Delegate
-    + Data Source
+  **commit #5.1**
+  ---
+  
  
