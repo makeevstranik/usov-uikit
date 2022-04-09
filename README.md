@@ -171,8 +171,20 @@ REMEMBER:
  **commit #4**
  ---
  ### ToDoManager ###
- 
+ App for saving and changing tsks. 3 screens.
  using:
+ - Xib Cell
+ - User Defaults (saving codable class with JsonCoder)
+ - Table View 
+ - Static Cells
+ - Segue, Closure, Delegate transfer data betwing controllers
+ - Original book app structure, is changed. Controller and Model strictly detached. All interaction through TaskManager and TaskStorage.
+ - New sorting algorithm is aded (sort only current section data).
+ - All decripting text for tasks is using with help of corresponding enum methods
+ 
+  **commit #5.1**
+  ---
+  
 
  
  
