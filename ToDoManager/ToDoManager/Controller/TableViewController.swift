@@ -86,8 +86,6 @@ class TableViewController: UITableViewController {
             // this closure also might be set in prepare() for segue from Add Task Bar Item
             self.delegateTaskEditController.completionClosure = { [unowned self] editedTask in
                 self.taskManager.changeTask(from: TaskPosition(key: indexPath.section, pos: indexPath.row), to: editedTask)
-                
-                //self.taskManager.saveTasksToStorage()
             }
             // go to the next controller
             self.navigationController?.pushViewController(self.delegateTaskEditController as! UIViewController, animated: true)

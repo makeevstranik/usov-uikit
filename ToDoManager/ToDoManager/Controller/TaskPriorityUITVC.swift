@@ -13,7 +13,7 @@ class TaskPriorityUITVC: UITableViewController {
     var taskManager: TaskManager!
     var selectedPriority: TaskPriority!
     
-    // this delegate was initialized in previous controller TaskEditUITVC in prepare()
+    // this delegate was initialised in previous controller TaskEditUITVC in prepare()
     var delegateTaskEditUITVC: TaskEditUITVC!
     
 

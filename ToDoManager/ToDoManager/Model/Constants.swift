@@ -8,9 +8,7 @@
 import Foundation
 
 enum TaskPriority: Int, CaseIterable {
-    case current = 0
-    case important
-    case canceled
+    case current = 0, important, canceled
 }
 
 extension TaskPriority: CustomStringConvertible {

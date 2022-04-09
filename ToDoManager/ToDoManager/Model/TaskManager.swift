@@ -30,7 +30,7 @@ final class TaskManager {
     func getTask(from source: TaskPosition) -> TaskProtocol? {
         let key = transformKeys[source.key]
         guard let task = self.transformedTasks[key]?[source.pos] else { return nil }
-        // if Task is class - create new instance here
+        // Task is class - create new instance here
         return Task(title: task.title, type: task.type, status: task.status)
     }
     
@@ -48,7 +48,6 @@ final class TaskManager {
         let keyDestination = transformKeys[destination.key]
         guard var movingTask = deleteTask(from: source) else { return }
         movingTask.type = TaskPriority(rawValue: destination.key)!
-        // code changing priority in case it has been changed
         self.transformedTasks[keyDestination]?.insert(movingTask, at: destination.pos)
         sortTransformedTasks(for: [keyDestination])
     }
@@ -61,7 +60,6 @@ final class TaskManager {
     }
     
     func deleteTask(from source: TaskPosition) -> TaskProtocol? {
-        //print("TaskManager.deleteTask(_ key: Int, _ position: Int) KEY:", source.key)
         let key = transformKeys[source.key]
         return self.transformedTasks[key]?.remove(at: source.pos)
     }
@@ -73,7 +71,6 @@ final class TaskManager {
         changeTaskTitle(from: source, editedTask.title)
         changeTaskType(from: source, editedTask.type)
 
-        //changeTaskStatus(from: source, editedTask.status)
         taskToChange.status = editedTask.status
         sortTransformedTasks(for: [key])
     }
