@@ -169,11 +169,8 @@ REMEMBER:
  navigationController?.popViewController(animated: true)
  ```  
  **commit #4**
-<<<<<<< HEAD
+ 
  ---   
- ### ToDoManager ###
-=======
- ---
  ### ToDoManager ###
  App for saving and changing tasks. 3 screens.
  using:
